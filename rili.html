@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/rili.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .wrapBox {
+            width: 400px;
+            margin: 50px auto;
+            line-height: 40px;
+            text-align: center;
+        }
+
+        .wrapBox .title {
+            display: flex;
+        }
+
+        .wrapBox .title .left,
+        .wrapBox .title .right {
+            width: 60px;
+            background-color: grey;
+        }
+
+        .wrapBox .title .center {
+            flex: 1;
+        }
+
+        .wrapBox .list {
+            display: flex;
+        }
+
+        .wrapBox .list li {
+            width: calc(100% /7);
+            box-sizing: border-box;
+            border: 1px solid #000;
+        }
+
+        .wrapBox .dateList {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .wrapBox .dateList li {
+            width: calc(100% /7);
+            box-sizing: border-box;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapBox">
+        <div class="title">
+            <div class="left">&lt;</div>
+            <div class="center"></div>
+            <div class="right">&gt;</div>
+        </div>
+        <ul class="list">
+            <li>一</li>
+            <li>二</li>
+            <li>三</li>
+            <li>四</li>
+            <li>五</li>
+            <li>六</li>
+            <li>七</li>
+        </ul>
+        <ul class="dateList">
+            <li>01</li>
+            <li>02</li>
+            <li>03</li>
+            <li>04</li>
+            <li>05</li>
+            <li>06</li>
+            <li>07</li>
+            <li>08</li>
+            <li>09</li>
+            <li>10</li>
+            <li>11</li>
+            <li>12</li>
+            <li>13</li>
+            <li>14</li>
+            <li>15</li>
+            <li>16</li>
+            <li>17</li>
+            <li>18</li>
+            <li>19</li>
+            <li>20</li>
+            <li>21</li>
+            <li>22</li>
+            <li>23</li>
+            <li>24</li>
+            <li>25</li>
+            <li>26</li>
+            <li>27</li>
+            <li>28</li>
+            <li>29</li>
+            <li>30</li>
+            <li>31</li>
+            <li>32</li>
+            <li>33</li>
+            <li>34</li>
+            <li>35</li>
+            <li>36</li>
+            <li>37</li>
+            <li>38</li>
+            <li>39</li>
+            <li>40</li>
+            <li>41</li>
+            <li>42</li>
+        </ul>
+
+
+    </div>
+</body>
+<script>
+    // 通过class名获取的元素放在一个集合(伪数组)中 
+    // 伪数组不能调用数组的拓展方法
+    // JS通过 document.getElementsByClassName获取并操作单个元素时,一定要记得加下标0 
+    var centerBox = document.getElementsByClassName("center")[0];
+    var leftBtn = document.getElementsByClassName("left")[0];
+    var rightBtn = document.getElementsByClassName("right")[0];
+    var dataList = document.getElementsByClassName("dateList")[0];
+    // console.log(centerBox);
+
+    var date = new Date();
+
+    // 做title中的显示部分
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    centerBox.innerHTML = year + "-" + month;
+
+    // 获取本月的第一天是星期几
+    var thisMonthFirstDay = getFirstDay(date);
+    thisMonthFirstDay = thisMonthFirstDay == 0 ? 7 : thisMonthFirstDay;
+    console.log(thisMonthFirstDay);
+
+    // 获取上个月有多少天
+    var beforeMonthDays = getBeforeMonthDays(date);
+    console.log(beforeMonthDays);
+
+    // 获取这个月有多少天
+    var thisMonthDays = getThisMonthDays(date);
+    // console.log(thisMonthDays);
+
+    // 7    31-7+1 = 25   25 26 27 28 29 30 31   多了一位
+    // 7    31-7+1+1 = 26 
+    //      beforeMonthDays - thisMonthFirstDay+2
+
+
+    // 动态生成 上个月的天数
+    var html = "";// 用来存储所有字符串拼接的
+    for (var i = beforeMonthDays - thisMonthFirstDay + 2; i <= beforeMonthDays; i++) {
+        console.log(i);
+        html += "<li style='background:grey;'>" + i + "</li>";
+    }
+
+    // 动态生成 当前月的天数
+    for (var i = 1; i <= thisMonthDays; i++) {
+        html += "<li>" + i + "</li>";
+    }
+
+    // 动态生成 下个月的天数
+    for (var i = 1; i <= (42 - thisMonthFirstDay - thisMonthDays + 1); i++) {
+        html += "<li style='background:grey;'>" + i + "</li>";
+    }
+
+    dataList.innerHTML = html;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>
